@@ -1,38 +1,24 @@
-<!-- https://eugenkiss.github.io/7guis/tasks#timer -->
-
 <script>
-	import { onDestroy } from 'svelte';
+	let c = 0;
+	let f = 32;
 
-	let elapsed = 0;
-	let duration = 5000;
+	function setBothFromC(value) {
+		c = +value;
+		f = +(32 + (9 / 5) * c).toFixed(1);
+	}
 
-	let last_time = window.performance.now();
-	let frame;
-
-	(function update() {
-		frame = requestAnimationFrame(update);
-
-		const time = window.performance.now();
-		elapsed += Math.min(time - last_time, duration - elapsed);
-
-		last_time = time;
-	})();
-
-	onDestroy(() => {
-		cancelAnimationFrame(frame);
-	});
+	function setBothFromF(value) {
+		f = +value;
+		c = +((5 / 9) * (f - 32)).toFixed(1);
+	}
 </script>
 
-<label>
-	elapsed time:
-	<progress value={elapsed / duration} />
-</label>
+<!-- https://eugenkiss.github.io/7guis/tasks/#temp -->
+<input value={c} on:input={(e) => setBothFromC(e.target.value)} type="number" /> °C =
+<input value={f} on:input={(e) => setBothFromF(e.target.value)} type="number" /> °F
 
-<div>{(elapsed / 1000).toFixed(1)}s</div>
-
-<label>
-	duration:
-	<input type="range" bind:value={duration} min="1" max="20000" />
-</label>
-
-<button on:click={() => (elapsed = 0)}>reset</button>
+<style>
+	input {
+		width: 5em;
+	}
+</style>
