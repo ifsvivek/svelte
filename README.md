@@ -1,1 +1,1 @@
-# try to make a website with svelte and vercel
+# trying to make a website with svelte and vercel
