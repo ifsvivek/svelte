@@ -1,20 +1,16 @@
 <script>
-	let m = { x: 0, y: 0 };
-
-	function handleMousemove(event) {
-		m.x = event.clientX;
-		m.y = event.clientY;
-	}
+	let a = 1;
+	let b = 2;
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:mousemove={handleMousemove}>
-	The mouse position is {m.x} x {m.y}
-</div>
+<label>
+	<input type="number" bind:value={a} min="0" max="10" />
+	<input type="range" bind:value={a} min="0" max="10" />
+</label>
 
-<style>
-	div {
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<label>
+	<input type="number" bind:value={b} min="0" max="10" />
+	<input type="range" bind:value={b} min="0" max="10" />
+</label>
+
+<p>{a} + {b} = {a + b}</p>
